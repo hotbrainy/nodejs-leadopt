@@ -1,0 +1,2 @@
+kubectl exec -it $(kubectl get pods | grep mongo |awk '{print $1}')  -- bash
+kubectl exec -it $(kubectl get pods | grep lead-opt |awk '{print $1}')  -- bash

@@ -1,0 +1,17 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image: lead-opt-backend
+replicaCount: 1
+env:
+  - name: NODE_ENV
+    value: "development"
+  - name: PORT
+    value: "3000"
+  - name: MONGO_URI
+    value: "mongo:27017"
+  - name: JWT_SECRET
+    value: "secret"
+  - name: JWT_EXPIRES_IN
+    value: "90d"
+  - name: JWT_COOKIE_EXPIRES_IN
+    value: "90"

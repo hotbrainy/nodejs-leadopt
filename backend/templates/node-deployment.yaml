@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}
+  labels:
+    app: {{.Chart.Name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}
+    spec:
+      containers:
+      - name: {{.Chart.Name}}
+        image: {{.Values.image}}
+        ports:
+          - name: http-server
+            containerPort: {{.Values.env.PORT}}
+        env:
+        - name: NODE_ENV
+          value: {{.Values.env.NODE_ENV}}
+        - name: PORT
+          value: "{{.Values.env.PORT}}"
+        - name: MONGO_URI
+          value: {{.Values.env.MONGO_URI}}  

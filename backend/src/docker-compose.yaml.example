@@ -1,0 +1,19 @@
+version: '3' # docker-compose version
+services: # services which our app going to use. (list of containers we want to create)
+  mongo: # container name 
+    image: mongo # On which image container will build
+    ports:
+      - "27017:27017"
+    # volumes:
+      # - ./mongo/db:/data/db  # Maps the local 'data' folder to MongoDB's data directory
+      # - ./mongo/config:/etc/mongo  # Maps the local 'data' folder to MongoDB's data directory
+    # command: ["mongod", "--config", "/etc/mongo/mongod.conf"] # Command to run the container
+    
+  lead-opt-backend: # container name
+    image: lead-opt-backend
+    ports:
+      - "8888:3000"
+    environment:
+      - MONGO_URI2=mongodb://mongo:27017/lead_opt
+    depends_on:
+      - mongo

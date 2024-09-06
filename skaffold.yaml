@@ -1,0 +1,45 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: lead-opt-backend
+build:
+  artifacts:
+    - image: lead-opt-backend
+      context: backend/src
+      docker:
+        dockerfile: Dockerfile
+        
+manifests:
+  # rawYaml:
+    # - deployment/dev/k8s/deployemts/node-deployment.yaml
+    # - deployment/dev/k8s/services/node-service.yaml
+    # - deployment/dev/k8s/deployemts/mongo-deployment.yaml
+    # - deployment/dev/k8s/services/mongo-service.yaml
+  helm:
+    releases:
+      - name: lead-opt-backend
+        chartPath: backend
+        valuesFiles:
+          - backend/values.yaml
+profiles:
+  - name: dev
+    deploy:
+      helm:
+        releases:
+          - name: lead-opt-backend
+            chartPath: backend
+            valuesFiles:
+              - backend/values.yaml
+  - name: prod
+    deploy:
+      helm:
+        releases:
+          - name: lead-opt-backend
+            chartPath: backend
+            valuesFiles:
+              - backend/values-prod.yaml
+# deploy:
+#   kubectl:
+#     manifests:
+#       - k8s/web.yaml
+#       # - k8s/mongodb.yaml
